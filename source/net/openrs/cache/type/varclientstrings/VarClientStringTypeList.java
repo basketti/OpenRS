@@ -61,6 +61,11 @@ public class VarClientStringTypeList implements TypeList<VarClientStringType> {
 		try {
 			ReferenceTable table = cache.getReferenceTable(CacheIndex.CONFIGS);
 			Entry entry = table.getEntry(ConfigArchive.VARCLIENTSTRING);
+			if (entry == null) {
+				System.out.println("Nothing to load for VarClientStringType(s)!");
+				return;
+			}
+			
 			Archive archive = Archive.decode(cache.read(CacheIndex.CONFIGS, ConfigArchive.VARCLIENTSTRING).getData(),
 					entry.size());
 

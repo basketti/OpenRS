@@ -48,6 +48,20 @@ task maps(type: JavaExec, dependsOn: classes) {
   classpath sourceSets.main.runtimeClasspath
 }
 
+task collisions(type: JavaExec, dependsOn: classes) {
+  description 'Dumps the maps'
+  main = 'net.openrs.cache.tools.CollisionDumper'
+  classpath sourceSets.main.runtimeClasspath
+  maxHeapSize "2048m"
+}
+
+task collisionsimage(type: JavaExec, dependsOn: classes) {
+  description 'Dumps the maps'
+  main = 'net.openrs.cache.tools.CollisionImageDumper'
+  classpath sourceSets.main.runtimeClasspath
+  maxHeapSize "2048m"
+}
+
 task models(type: JavaExec, dependsOn: classes) {
   description 'Dumps the models'
   main = 'net.openrs.cache.tools.ModelDumper'

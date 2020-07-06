@@ -21,6 +21,9 @@
  */
 package net.openrs.cache.type;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.openrs.cache.Cache;
 import net.openrs.cache.type.areas.AreaType;
 import net.openrs.cache.type.areas.AreaTypeList;
@@ -42,8 +45,8 @@ import net.openrs.cache.type.objects.ObjectType;
 import net.openrs.cache.type.objects.ObjectTypeList;
 import net.openrs.cache.type.overlays.OverlayType;
 import net.openrs.cache.type.overlays.OverlayTypeList;
-import net.openrs.cache.type.params.ParamTypeList;
 import net.openrs.cache.type.params.ParamType;
+import net.openrs.cache.type.params.ParamTypeList;
 import net.openrs.cache.type.sequences.SequenceType;
 import net.openrs.cache.type.sequences.SequenceTypeList;
 import net.openrs.cache.type.spotanims.SpotAnimType;
@@ -208,6 +211,23 @@ public class TypeListManager {
 
 	public static final ObjectType lookupObject(int id) {
 		return obj.list(id);
+	}
+
+	public static final List<ObjectType> lookupObjectTypes(int id) {
+		List<ObjectType> list = new ArrayList<>();
+		ObjectType def = lookupObject(id);
+		int[] defs = def.getConfigChangeDest();
+		if (defs != null) {
+			for (int i : defs) {
+				if (i > -1) {
+					list.add(lookupObject(i));
+					return list;
+				}
+			}
+		} else {
+			list.add(def);
+		}
+		return list;
 	}
 
 	public static final OverlayType lookupOver(int id) {

@@ -21,6 +21,9 @@
  */
 package net.openrs.cache.region;
 
+import net.openrs.cache.type.TypeListManager;
+import net.openrs.cache.type.objects.ObjectType;
+
 /**
  * @author Kyle Friz
  * @since  Apr 2, 2016
@@ -65,6 +68,16 @@ public class Location {
 	 */
 	public final Position getPosition() {
 		return position;
+	}
+
+	public int getWidth() {
+		ObjectType def = TypeListManager.lookupObject(getId());
+		return getOrientation() % 2 == 0 ? def.getSizeX() : def.getSizeY();
+	}
+
+	public int getLength() {
+		ObjectType def = TypeListManager.lookupObject(getId());
+		return getOrientation() % 2 == 0 ? def.getSizeY() : def.getSizeX();
 	}
 	
 }

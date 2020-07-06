@@ -56,17 +56,17 @@ public class ObjectType implements Type {
 	private int ambient = 0;
 	private int contrast = 0;
 	private String[] actions = new String[5];
-	private int anInt2094 = 2;
+	private int clipType = 2;
 	private int mapSceneID = -1;
 	private short[] recolorToReplace;
-	private boolean aBool2097 = true;
+	private boolean clipped = true;
 	private int modelSizeX = 128;
 	private int modelSizeHeight = 128;
 	private int modelSizeY = 128;
 	private int objectID;
 	private int offsetHeight = 0;
 	private int offsetY = 0;
-	private boolean aBool2104 = false;
+	private boolean blocksGround = false;
 	private int anInt2105 = -1;
 	private int anInt2106 = -1;
 	private int[] configChangeDest;
@@ -119,7 +119,7 @@ public class ObjectType implements Type {
 			} else if (opcode == 15) {
 				sizeY = buffer.get() & 0xFF;
 			} else if (opcode == 17) {
-				anInt2094 = 0;
+				clipType = 0;
 				aBool2114 = false;
 			} else if (opcode == 18) {
 				aBool2114 = false;
@@ -137,7 +137,7 @@ public class ObjectType implements Type {
 					animationID = -1;
 				}
 			} else if (opcode == 27) {
-				anInt2094 = 1;
+				clipType = 1;
 			} else if (opcode == 28) {
 				anInt2069 = buffer.get() & 0xFF;
 			} else if (opcode == 29) {
@@ -171,7 +171,7 @@ public class ObjectType implements Type {
 			} else if (opcode == 62) {
 				aBool2108 = true;
 			} else if (opcode == 64) {
-				aBool2097 = false;
+				clipped = false;
 			} else if (opcode == 65) {
 				modelSizeX = buffer.getShort() & 0xFFFF;
 			} else if (opcode == 66) {
@@ -189,7 +189,7 @@ public class ObjectType implements Type {
 			} else if (opcode == 72) {
 				offsetY = buffer.getShort() & 0xFFFF;
 			} else if (opcode == 73) {
-				aBool2104 = true;
+				blocksGround = true;
 			} else if (opcode == 74) {
 				isSolid = true;
 			} else if (opcode == 75) {
@@ -601,18 +601,18 @@ public class ObjectType implements Type {
 	}
 
 	/**
-	 * @return the anInt2094
+	 * @return the clipType
 	 */
-	public int getAnInt2094() {
-		return anInt2094;
+	public int getClipType() {
+		return clipType;
 	}
 
 	/**
 	 * @param anInt2094
 	 *            the anInt2094 to set
 	 */
-	public void setAnInt2094(int anInt2094) {
-		this.anInt2094 = anInt2094;
+	public void setClipType(int clipType) {
+		this.clipType = clipType;
 	}
 
 	/**
@@ -646,18 +646,18 @@ public class ObjectType implements Type {
 	}
 
 	/**
-	 * @return the aBool2097
+	 * @return the clipped
 	 */
-	public boolean isaBool2097() {
-		return aBool2097;
+	public boolean isClipped() {
+		return clipped;
 	}
 
 	/**
-	 * @param aBool2097
-	 *            the aBool2097 to set
+	 * @param clipped
+	 *            the clipped to set
 	 */
-	public void setaBool2097(boolean aBool2097) {
-		this.aBool2097 = aBool2097;
+	public void setClipped(boolean clipped) {
+		this.clipped = clipped;
 	}
 
 	/**
@@ -751,18 +751,18 @@ public class ObjectType implements Type {
 	}
 
 	/**
-	 * @return the aBool2104
+	 * @return the blocksGround
 	 */
-	public boolean isaBool2104() {
-		return aBool2104;
+	public boolean isBlocksGround() {
+		return blocksGround;
 	}
 
 	/**
-	 * @param aBool2104
+	 * @param blocksGround
 	 *            the aBool2104 to set
 	 */
-	public void setaBool2104(boolean aBool2104) {
-		this.aBool2104 = aBool2104;
+	public void setBlocksGround(boolean blocksGround) {
+		this.blocksGround = blocksGround;
 	}
 
 	/**

@@ -41,12 +41,12 @@ public class Region {
 	private final int baseX;
 	private final int baseY;
 
-	private final int[][][] tileHeights = new int[4][104][104];
-	private final byte[][][] renderRules = new byte[4][104][104];
-	private final byte[][][] overlayIds = new byte[4][104][104];
-	private final byte[][][] overlayPaths = new byte[4][104][104];
-	private final byte[][][] overlayRotations = new byte[4][104][104];
-	private final byte[][][] underlayIds = new byte[4][104][104];
+	private final int[][][] tileHeights = new int[4][64][64];
+	private final byte[][][] renderRules = new byte[4][64][64];
+	private final byte[][][] overlayIds = new byte[4][64][64];
+	private final byte[][][] overlayPaths = new byte[4][64][64];
+	private final byte[][][] overlayRotations = new byte[4][64][64];
+	private final byte[][][] underlayIds = new byte[4][64][64];
 	
 	private final List<Location> locations = new ArrayList<>();
 
