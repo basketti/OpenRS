@@ -1,10 +1,12 @@
 package net.openrs.cache.region;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import net.openrs.cache.Cache;
 import net.openrs.cache.type.TypeListManager;
@@ -13,7 +15,7 @@ import net.openrs.cache.type.objects.ObjectType;
 /**
  * Loads all the regions and compiles the collision maps.
  * 
- * @author Lemons
+ * @author person
  */
 public class CollisionMap {
 	
@@ -57,14 +59,27 @@ public class CollisionMap {
 	}
 	
 	private void markLocation(Location loc) {
-		if (!filter.test(loc)) {
+		if (!filter.test(loc) && (loc.getType() > 7 || !isWallBlocked(loc))) {
+			System.out.println("Clearing "+TypeListManager.lookupObjectTypes(loc.getId()).get(0).getName()
+					+" at "+loc.getPosition()+" type "+loc.getType());
 			markSolidOccupant(loc, TypeListManager.lookupObjectTypes(loc.getId()).get(0), RegionFlag.CLEAR);
 			return;
 		}
 		
 		for (ObjectType def : TypeListManager.lookupObjectTypes(loc.getId())) {
 			markLocation(loc, def);
+			break;
 		}
+	}
+	
+	private boolean isWallBlocked(Location loc) {
+		RegionFlag flag = RegionFlag.WALL_WEST;
+		for (int i = 0; i < loc.getOrientation(); i++) {
+			flag = flag.turn(1);
+		}
+		Position pair = flag.getMirrorPosition(loc.getPosition());
+		CollisionRegion region = getRegion(pair);
+		return region == null || flag.flip().test(region.getTileFlag(pair));
 	}
 	
 	private void markLocation(Location loc, ObjectType def) {
@@ -153,23 +168,22 @@ public class CollisionMap {
 		}
 		
 		addFlags(p, flags);
-			
-		for (int a = 0; a < flags.length; a++) {
-			flags[a] = flags[a].turn45(loc.getType() == 2 ? 3 : 4);
-		}
-		
-		int[] offset = WALL_OFFSETS[loc.getType() % 2][loc.getOrientation()];
-		addFlags(new Position(p.getX() + offset[0], p.getY() + offset[1], p.getHeight()), flags);
 		if (loc.getType() == 2) {
 			for (int a = 0; a < flags.length; a++) {
 				flags[a] = flags[a].turn(1);
 			}
-			offset = WALL_OFFSETS[0][(loc.getOrientation() + 1) % 4];
-			addFlags(new Position(p.getX() + offset[0], p.getY() + offset[1], p.getHeight()), flags);
+			addFlags(p, flags);
 		}
 	}
 	
 	private void addFlags(Position p, RegionFlag... flags) {
+		addPositionFlags(p, flags);
+		for (RegionFlag flag : flags) {
+			addPositionFlags(flag.getMirrorPosition(p), flag.flip());
+		}
+	}
+
+	private void addPositionFlags(Position p, RegionFlag... flags) {
 		CollisionRegion region = regions.get(p.getRegionID());
 		if (region != null) {
 			region.addTileFlag(p, flags);

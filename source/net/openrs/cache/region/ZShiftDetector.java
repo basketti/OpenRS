@@ -60,7 +60,7 @@ public class ZShiftDetector {
 		ObjectType objType = TypeListManager.lookupObject(location.getId());
 		
 		if (objType.getSizeX() == 2 && objType.getSizeY() == 2) {
-			System.out.println("SpiralStairs @ " + location.getPosition());
+			//System.out.println("SpiralStairs @ " + location.getPosition());
 			solveSpiralStaircase(location, objType);
 		} else if ((objType.getSizeX() == 2 && objType.getSizeY() == 3)
 				|| (objType.getSizeX() == 2 && objType.getSizeY() == 4)
@@ -68,10 +68,10 @@ public class ZShiftDetector {
 				|| (objType.getSizeX() == 4 && objType.getSizeY() == 2)
 				|| (objType.getSizeX() == 3 && objType.getSizeY() == 1)
 				|| (objType.getSizeX() == 1 && objType.getSizeY() == 3)) {
-			System.out.println("ShiftStairs @ " + location.getPosition());
+			//System.out.println("ShiftStairs @ " + location.getPosition());
 			solveShiftStaircase(location, objType);
 		} else if (objType.getSizeX() == 1 && objType.getSizeY() == 1) {
-			System.out.println("Ladder @ " + location.getPosition());
+			//System.out.println("Ladder @ " + location.getPosition());
 			solveLadder(location, objType);
 		} else {
 			System.out.println("Unknown object type " + objType.getName()
@@ -295,7 +295,6 @@ public class ZShiftDetector {
 			linkMap.put(region, list);
 		}
 		list.add(link);
-		System.out.println("   "+link[0]+" <> "+link[1]);
 	}
 	
 	private boolean isStairs(Location l) {

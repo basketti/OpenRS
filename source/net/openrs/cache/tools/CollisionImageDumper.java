@@ -52,10 +52,10 @@ public class CollisionImageDumper {
 				for (int x = 0; x < 64; x++) {
 					for (int y = 0; y < 64; y++) {
 						tileFlags[z][x][y] =
-								(((int) data[dataIndex++]) << 24)
-								| (((int) data[dataIndex++]) << 16)
-								| (((int) data[dataIndex++]) << 8)
-								| (int) data[dataIndex++];
+								((0xFF & data[dataIndex++]) << 24)
+								| ((0xFF & data[dataIndex++]) << 16)
+								| ((0xFF & data[dataIndex++]) << 8)
+								| (0xFF & data[dataIndex++]);
 					}
 				}
 			}
@@ -110,18 +110,19 @@ public class CollisionImageDumper {
 					if (RegionFlag.WALL_WEST.test(f)) {
 						graphics.drawLine(px, py, px, py + 1);
 					}
-					if (RegionFlag.WALL_NORTHEAST.test(f)) {
-						graphics.drawLine(px + 1, py, px + 1, py);
-					}
-					if (RegionFlag.WALL_SOUTHEAST.test(f)) {
-						graphics.drawLine(px + 1, py + 1, px + 1, py + 1);
-					}
-					if (RegionFlag.WALL_NORTHWEST.test(f)) {
-						graphics.drawLine(px, py, px, py);
-					}
-					if (RegionFlag.WALL_SOUTHWEST.test(f)) {
-						graphics.drawLine(px, py + 1, px, py + 1);
-					}
+//					graphics.setColor(Color.magenta);
+//					if (RegionFlag.WALL_NORTHEAST.test(f)) {
+//						graphics.drawLine(px + 1, py, px + 1, py);
+//					}
+//					if (RegionFlag.WALL_SOUTHEAST.test(f)) {
+//						graphics.drawLine(px + 1, py + 1, px + 1, py + 1);
+//					}
+//					if (RegionFlag.WALL_NORTHWEST.test(f)) {
+//						graphics.drawLine(px, py, px, py);
+//					}
+//					if (RegionFlag.WALL_SOUTHWEST.test(f)) {
+//						graphics.drawLine(px, py + 1, px, py + 1);
+//					}
 				}
 			}
 			

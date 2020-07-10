@@ -3,6 +3,7 @@ package net.openrs.cache.region;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 import java.util.zip.ZipException;
 
 import net.openrs.cache.Cache;
@@ -12,7 +13,7 @@ import net.openrs.cache.util.XTEAManager;
 /**
  * 
  * 
- * @author Lemons
+ * @author person
  */
 public class CollisionRegion extends Region {
 
@@ -124,6 +125,10 @@ public class CollisionRegion extends Region {
 	
 	public int[][][] getTileFlags() {
 		return tileFlags;
+	}
+
+	public int getTileFlag(Position position) {
+		return tileFlags[position.getHeight()][position.getXInRegion()][position.getYInRegion()];
 	}
 
 }

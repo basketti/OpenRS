@@ -81,10 +81,10 @@ public class LocationFilter implements Predicate<Location> {
 		}
 		for (ObjectType def : TypeListManager.lookupObjectTypes(t.getId())) {
 			if (names.contains(def.getName())) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 	
 }
